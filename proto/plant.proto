@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package protobuf;
+option  go_package           = "./;protobufpb";
+option  java_multiple_files  = true;
+option  java_package         = "com.protobuf";
+option  java_outer_classname = "BaseProto";
+
+import "google/protobuf/timestamp.proto";
+
+message PlantInfo {
+    string id = 1;              // ID cây trồng
+    string plant_name = 2;            // Tên cây
+    string type = 3;         // Loại cây
+    google.protobuf.Timestamp planting_date = 4;    // Ngày trồng (epoch time)
+    float height = 5;           // Chiều cao cây
+    string health_status = 6;   // Tình trạng sức khỏe cây (ví dụ: khỏe mạnh, bệnh tật, ...)
+    string image_url = 7;       // URL hình ảnh cây trồng
+    int64 estimated_harvest_date = 8;  // Ngày dự kiến thu hoạch (epoch time)
+}
+
+
+message CreatePlantReq {
+    string plant_name = 2;            // Tên cây
+    string type = 3;         // Loại cây
+    google.protobuf.Timestamp planting_date = 4;    // Ngày trồng (epoch time)
+    float height = 5;           // Chiều cao cây
+    string health_status = 6;   // Tình trạng sức khỏe cây (ví dụ: khỏe mạnh, bệnh tật, ...)
+    string image_url = 7;       // URL hình ảnh cây trồng
+    int64 estimated_harvest_date = 8;  // Ngày dự kiến thu hoạch (epoch time)
+}
+
+
+message ReadPlantReq { PlantInfo filter = 1; }
+
+message ListPlantReq {
+   string keyword = 3;
+   int64 page = 4;
+   int64 limited = 5;
+}
+
+message UpdatePlantReq { PlantInfo plant = 1; }
+message UploadAvatarPlantReq {
+  string path    = 1;
+}
+
+message CreatePlantRes { bool success = 1; }
+message ReadPlantRes { PlantInfo plant = 1; }
+message ListPlantRes { repeated PlantInfo plants = 1; }
+message UpdatePlantRes { PlantInfo plant = 1; }
+message UploadAvatarPlantRes { bool success = 1; }
+
+service PlantSrv {
+    rpc Create(CreatePlantReq) returns (CreatePlantRes) {}
+    rpc Read(ReadPlantReq) returns (ReadPlantRes) {}
+    rpc List(ListPlantReq) returns (ListPlantRes) {}
+    rpc Update(UpdatePlantReq) returns (UpdatePlantRes) {}
+    rpc UploadAvatarPlant(UploadAvatarPlantRes) returns (UploadAvatarPlantRes) {}
+  }
