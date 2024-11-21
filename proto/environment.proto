@@ -16,7 +16,6 @@ message EnvironmentInfo {
     float rain_chance = 5;         // Khả năng mưa
     float wind_speed = 6;         // Ánh sáng mặt trời (hàng giờ)
     google.protobuf.Timestamp date = 7; // ngày Dự báo thời tiết
-    int64 recorded_at = 8;      // Thời gian ghi nhận (epoch time)
   }
 
   message CreateEnvironmentReq {
@@ -26,7 +25,6 @@ message EnvironmentInfo {
     float rain_chance = 5;         // Khả năng mưa
     float wind_speed = 6;         // Ánh sáng mặt trời (hàng giờ)
     google.protobuf.Timestamp date = 7; // ngày Dự báo thời tiết
-    int64 recorded_at = 8;      // Thời gian ghi nhận (epoch time)
 }
 
 
