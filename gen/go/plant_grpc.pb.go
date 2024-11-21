@@ -34,7 +34,7 @@ type PlantSrvClient interface {
 	Read(ctx context.Context, in *ReadPlantReq, opts ...grpc.CallOption) (*ReadPlantRes, error)
 	List(ctx context.Context, in *ListPlantReq, opts ...grpc.CallOption) (*ListPlantRes, error)
 	Update(ctx context.Context, in *UpdatePlantReq, opts ...grpc.CallOption) (*UpdatePlantRes, error)
-	UploadAvatarPlant(ctx context.Context, in *UploadAvatarPlantRes, opts ...grpc.CallOption) (*UploadAvatarPlantRes, error)
+	UploadAvatarPlant(ctx context.Context, in *UploadAvatarPlantReq, opts ...grpc.CallOption) (*UploadAvatarPlantRes, error)
 }
 
 type plantSrvClient struct {
@@ -85,7 +85,7 @@ func (c *plantSrvClient) Update(ctx context.Context, in *UpdatePlantReq, opts ..
 	return out, nil
 }
 
-func (c *plantSrvClient) UploadAvatarPlant(ctx context.Context, in *UploadAvatarPlantRes, opts ...grpc.CallOption) (*UploadAvatarPlantRes, error) {
+func (c *plantSrvClient) UploadAvatarPlant(ctx context.Context, in *UploadAvatarPlantReq, opts ...grpc.CallOption) (*UploadAvatarPlantRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(UploadAvatarPlantRes)
 	err := c.cc.Invoke(ctx, PlantSrv_UploadAvatarPlant_FullMethodName, in, out, cOpts...)
@@ -103,7 +103,7 @@ type PlantSrvServer interface {
 	Read(context.Context, *ReadPlantReq) (*ReadPlantRes, error)
 	List(context.Context, *ListPlantReq) (*ListPlantRes, error)
 	Update(context.Context, *UpdatePlantReq) (*UpdatePlantRes, error)
-	UploadAvatarPlant(context.Context, *UploadAvatarPlantRes) (*UploadAvatarPlantRes, error)
+	UploadAvatarPlant(context.Context, *UploadAvatarPlantReq) (*UploadAvatarPlantRes, error)
 	mustEmbedUnimplementedPlantSrvServer()
 }
 
@@ -126,7 +126,7 @@ func (UnimplementedPlantSrvServer) List(context.Context, *ListPlantReq) (*ListPl
 func (UnimplementedPlantSrvServer) Update(context.Context, *UpdatePlantReq) (*UpdatePlantRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedPlantSrvServer) UploadAvatarPlant(context.Context, *UploadAvatarPlantRes) (*UploadAvatarPlantRes, error) {
+func (UnimplementedPlantSrvServer) UploadAvatarPlant(context.Context, *UploadAvatarPlantReq) (*UploadAvatarPlantRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UploadAvatarPlant not implemented")
 }
 func (UnimplementedPlantSrvServer) mustEmbedUnimplementedPlantSrvServer() {}
@@ -223,7 +223,7 @@ func _PlantSrv_Update_Handler(srv interface{}, ctx context.Context, dec func(int
 }
 
 func _PlantSrv_UploadAvatarPlant_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UploadAvatarPlantRes)
+	in := new(UploadAvatarPlantReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -235,7 +235,7 @@ func _PlantSrv_UploadAvatarPlant_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: PlantSrv_UploadAvatarPlant_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PlantSrvServer).UploadAvatarPlant(ctx, req.(*UploadAvatarPlantRes))
+		return srv.(PlantSrvServer).UploadAvatarPlant(ctx, req.(*UploadAvatarPlantReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
