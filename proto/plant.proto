@@ -16,7 +16,7 @@ message PlantInfo {
     float height = 5;           // Chiều cao cây
     string health_status = 6;   // Tình trạng sức khỏe cây (ví dụ: khỏe mạnh, bệnh tật, ...)
     string image_url = 7;       // URL hình ảnh cây trồng
-    int64 estimated_harvest_date = 8;  // Ngày dự kiến thu hoạch (epoch time)
+    google.protobuf.Timestamp estimated_harvest_date = 8;  // Ngày dự kiến thu hoạch (epoch time)
 }
 
 
